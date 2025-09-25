@@ -19,6 +19,14 @@ from typing import Union
 import cv2 as cv
 import matplotlib.pyplot as plt
 import numpy as np
+
+# Compatibility aliases for deprecated NumPy scalar types
+if not hasattr(np, "float"):
+    np.float = float
+if not hasattr(np, "int"):
+    np.int = int
+if not hasattr(np, "bool"):
+    np.bool = bool
 import scipy.io as sio
 # NURBS
 from geomdl import fitting
