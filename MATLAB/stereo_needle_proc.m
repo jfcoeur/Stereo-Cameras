@@ -52,9 +52,6 @@ l_img = imread(l_img_file);
 r_img = imread(r_img_file);
 l_ref_img = imread(l_ref_img_file);
 r_ref_img = imread(r_ref_img_file);
-
-needle_proc(l_img, r_img)
-
 % stereo needle processing
 roi_l = py.tuple({{int16(70), int16(80)}, {int16(500), int16(915)}});
 roi_r = py.tuple({{int16(70), int16(55)}, {int16(500), int16(-1)}});
