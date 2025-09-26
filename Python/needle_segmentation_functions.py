@@ -4,7 +4,7 @@ from skimage.morphology import skeletonize
 from os.path import exists
 import matplotlib.pyplot as plt
 
-ROI = [40, 975, 420, 540]  # xleft, xright, ytop, ybottom #Region of Interest
+ROI = [519, 1029, 194, 742]  # xleft, xright, ytop, ybottom #Region of Interest
 top_bor = 35  # x  0:top_bor      -> 0
 br_bor = [905, 82]  # [(1):, (0):]      -> 0
 tr_bor = [910, -1, 0, 72]  # [(2):(3): (0):(1) -> 0
