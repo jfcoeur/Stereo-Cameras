@@ -15,8 +15,8 @@ function [nurbs_interp_tf, jig_shape, errors] = stereo_validation(file_num, curv
 
     %% File Preparation
     base_file = curv_dir + sprintf("left-right-%04d_", file_num) + "%s.%s";
-%     nurbs_file = curv_dir + sprintf("left-right-%04d_nurbs-pts.txt", file_num);
-    nurbs_file = sprintf(base_file, "3d-pts", "txt");
+    nurbs_file = curv_dir + sprintf("left-right-%04d_3d-pts.csv", file_num);
+    % nurbs_file = sprintf(base_file, "3d-pts", "txt");
     
     % check if the files exist
     if exist(nurbs_file, 'file') ~= 2
@@ -26,10 +26,10 @@ function [nurbs_interp_tf, jig_shape, errors] = stereo_validation(file_num, curv
     
     %% Pull-in Data
     % nurbs-3D curve points
-    nurbs_pts = readmatrix(nurbs_file);
+    nurbs_pts = readmatrix(nurbs_file);    
     
     % determine the curvature
-    re_patt = "k_([0-9]+.?[0-9]*)/";
+    re_patt = "k_([0-9]+.?[0-9]*)\";
     match = regexp(curv_dir, re_patt, 'tokens');
     
     if isempty(match)
@@ -52,7 +52,10 @@ function [nurbs_interp_tf, jig_shape, errors] = stereo_validation(file_num, curv
     %% Rigid body transform of nurbs points
     % standardize nurbs points ( for constant ds arclength points )
     nurbs_interp = interp_pts(nurbs_pts, s);
-    
+    s = s(all(~isnan(nurbs_interp),2));
+    jig_shape = jig_shape(all(~isnan(nurbs_interp),2), :);
+    nurbs_interp = nurbs_interp(all(~isnan(nurbs_interp),2), :);
+
     % determine rigid body transform
     [R, p] = point_cloud_reg(nurbs_interp, jig_shape);
     
@@ -120,17 +123,16 @@ function [nurbs_interp_tf, jig_shape, errors] = stereo_validation(file_num, curv
     %% Saving
     if ~isempty(kwargs.save_dir)
         % 3-D plot
-        verbose_savefig(fig_shape_3d, sprintf(base_file, 'jig_shape-3d','fig'));
-        verbose_saveas(fig_shape_3d, sprintf(base_file, 'jig_shape-3d','png'));
+        verbose_savefig(fig_shape_3d, curv_dir + "jig_shape-3d.fig");
+        verbose_saveas(fig_shape_3d, curv_dir + "jig_shape-3d.png");
         
         % 2-D plot
-        verbose_savefig(fig_shape_2d, sprintf(base_file, 'jig_shape-2d','fig'));
-        verbose_saveas(fig_shape_2d, sprintf(base_file, 'jig_shape-2d','png'));
+        verbose_savefig(fig_shape_2d, curv_dir + "jig_shape-2d.fig");
+        verbose_saveas(fig_shape_2d, curv_dir + "jig_shape-2d.png");
         
         % error plot
-        verbose_savefig(fig_err, sprintf(base_file, 'jig_err','fig'));
-        verbose_saveas(fig_err, sprintf(base_file, 'jig_err','png'));
-        
+        verbose_savefig(fig_err, curv_dir + "jig_err.fig");
+        verbose_saveas(fig_err, curv_dir + "jig_err.png");        
     end
     
     

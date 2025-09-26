@@ -4,10 +4,11 @@
 % reconstruction of the needle shape
 %
 % - written by: Dimitri Lezcano
+clear; clc; close all;
 
 %% Set-up
-data_dir = "../../data/stereo_validation_jig/";
-curvature_dirs = data_dir + ls(data_dir + "k_*") + "/"; 
+data_dir = "C:\Users\jfcoe\OneDrive - Johns Hopkins\Documents\GitHub\Stereo Cameras\Files\Validation\";
+curvature_dirs = data_dir + ls(data_dir + "k_*") + "\"; 
 
 % regex set-up
 re_patt = "left-right-([0-9]{4})";
@@ -44,7 +45,7 @@ function img_nums = get_stereo_numbers(curv_dir)
     re_patt = "left-right-([0-9]{4})";
     
     % grab files
-    nurb_files = dir(curv_dir + "left-right-*_3d-pts.txt");
+    nurb_files = dir(curv_dir + "left-right-*_3d-pts.csv");
     
     % find the image numbers
     img_nums = [];
