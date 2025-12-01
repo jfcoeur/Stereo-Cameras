@@ -2607,7 +2607,10 @@ def stereomatch_normxcorr(
 
         match_pt, score = normxcorr1( template, right_zoom_roi, px_pt[ 0 ], mask=template_mask )
         if roi_right is not None:
-            match_pt += [0, 1]*np.array(roi_right[0])
+            # account for the top-left offset of the cropped ROI when mapping back to full-image
+            # coordinates. The previous implementation only added the column offset, leaving the
+            # row component unchanged and causing a vertical shift in the matched right contours.
+            match_pt += np.array(roi_right[0])
         if (
             (score > score_thresh)
             or (keep_last_match and (i == pts_l.shape[0]))
