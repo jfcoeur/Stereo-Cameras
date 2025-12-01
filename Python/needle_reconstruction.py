@@ -944,7 +944,7 @@ class StereoNeedleRefReconstruction( StereoNeedleReconstruction ):
         sub_thresh                 = kwargs.get( 'sub_thresh', 60 )
         proc_show                  = kwargs.get( 'proc_show', False )
 
-        segment_num_cc_keep           = kwargs.get( "segmentation_num_cc_keep", 0.5 )
+        segment_num_cc_keep           = kwargs.get( "segmentation_num_cc_keep", 1 )
         segment_outlier_thresh        = kwargs.get( "segmentation_outlier_thresh", -1 )
         segment_outlier_scale         = kwargs.get( "segmentation_outlier_scale", (1, 1))
         segment_bspl_k                = kwargs.get( "segmentation_bspline_k", -1 )
@@ -1373,7 +1373,7 @@ def main( args=None ):
         "stereomatch_outlier_thresh"         : pargs.stereomatch_outlier_thresh,
         "stereomatch_outlier_scale"          : pargs.stereomatch_outlier_scale,
         "stereomatch_outlier_num_neighbors"  : pargs.stereomatch_outlier_num_neighbors,
-        "steromatch_use_roi"                 : pargs.stereomatch_use_roi,
+        "stereomatch_use_roi"                : pargs.stereomatch_use_roi,
     }
     if pargs.video:
         image_processor = StereoRefInsertionExperimentVideo(
