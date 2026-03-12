@@ -7,7 +7,7 @@
 clear; clc; close all;
 
 %% Set-up
-data_dir = "C:\Users\jfcoe\OneDrive - Johns Hopkins\Documents\GitHub\Stereo Cameras\Files\Validation\";
+data_dir = "C:\Users\jfcoe\OneDrive - Johns Hopkins\Documents\GitHub\Stereo Cameras\Files\Validation_IROS2026\";
 curvature_dirs = data_dir + ls(data_dir + "k_*") + "\"; 
 
 % regex set-up
